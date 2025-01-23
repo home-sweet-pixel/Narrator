@@ -1,0 +1,77 @@
+@STORY
+
+TITLE Narrator's calculator!
+
+IF reset
+  NOW NO first operand given
+  NOW NO second operand given
+  NOW NO result
+FI
+
+IF NO first operand given
+  NOW first operand given = INPUT
+  ACTUALLY reporting stuff
+FI
+
+IF NO second operand given
+  NOW second operand given = INPUT
+  ACTUALLY reporting stuff
+FI
+
+IF NO result
+  IF add
+    NOW result = first operand given
+    ADD second operand given TO result
+  FI
+  IF subtract
+    NOW result = first operand given
+    SUBTRACT second operand given FROM result
+  FI
+  IF multiply
+    NOW result = first operand given
+    MULTIPLY result BY second operand given
+  FI
+  IF divide
+    NOW result = first operand given
+    DIVIDE result BY second operand given
+  FI
+  IF randomize
+    NOW range = second operand given
+    SUBTRACT first operand given FROM range
+    ADD 1 TO range
+    RANDOMIZE result BY range
+    ADD first operand given TO result
+    SUBTRACT 1 FROM result
+  FI
+FI
+
+WHEN reporting stuff:
+
+IF NO first operand given
+  SAY Please enter first operand...
+FI
+
+IF first operand given
+  SAY First operand=
+  REPORT first operand given
+FI
+
+IF first operand given, BUT NO second operand given
+  SAY \Please enter second operand...
+FI
+
+IF second operand given
+  SAY \Second operand=
+  REPORT second operand given
+FI
+
+IF first operand given, AND second operand given, BUT NO result
+  SAY \Which is the operation to perform?
+  CLAIM \Available operations: add, subtract, divide, multiply, randomize.
+FI
+
+IF result
+  SAY \Result=
+  REPORT result
+  CLAIM \Type "reset" for another run.
+FI

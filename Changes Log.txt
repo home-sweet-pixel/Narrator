@@ -1,0 +1,18 @@
+--- current version: 5.6.4
+
+general note: if you want to change the version number in the lower right corner, start from "version.tif":
+- that's a layered TIF that you could load in... say, Photoshop, to edit the "type layer" and change its contents
+- after that, save "version.tif" as "version.tga", in 24 or 32 bits per pixel
+- then, run The Narrator and convert "version.tga" to "version.plz" using color mode
+- finally, replace "build/version.plz" with your new "version.plz", and recompile the program
+
+--- changes since "rushed" version 5.3.23
+
+- corrected outdated credits dialog, mistakenly asserting The Narrator's source code was "read-only", which is no longer true
+- fixed visual glitch with REPORT writing in CLAIM or PUSH colors depending on what was found before the REPORT statement
+- raised storybook pictures' size limit from 320x240 to 512x384
+- implemented SEED command to set Mersenne Twister's seed to an arbitrary numeric value or to the value of a variable
+- implemented EPOCH variable to retrieve the number of seconds since the beginning of the year
+- allowed missing "REPORT INPUT" combinations
+- discarded extra stack unit causing crashes on error message "void symbol name" in subroutine "ls terminate entity"
+- updated "How to use The Narrator.txt" to reflect all changes

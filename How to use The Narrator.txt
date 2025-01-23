@@ -1,0 +1,1036 @@
+------------------------------------------------------------------------------
+*** POWERED BY L.IN.OLEUM
+
+------------------------------------------------------------------------------
+*** L.IN.OLEUM homebase 		   http://anywherebb.com/linoleum.html
+ ** Author's contact form		   http://anywherebb.com/tellalex.html
+  * The Webterritory of Fottifoh	   http://anywhere.i.am
+					   http://anywherebb.com
+					   http://0x44.com
+
+------------------------------------------------------------------------------
+*** Copyright and license informations:
+
+    HSP Narrator, "The Narrator.exe", version 5.6.4
+
+    Copyright 2001-2005 by Alessandro Ghignola
+    Copyright 2001-2005 Home Sweet Pixel software
+
+    This library is free software; you can redistribute it and/or modify it
+    under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation; either version 2.1 of the License, or,
+    at your option, any later version.
+
+    This library is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+    or FITNESS FOR A PARTICULAR PURPOSE.
+    See the GNU Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with this library; if not, write to the Free Software Foundation,
+    Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+
+------------------------------------------------------------------------------
+
+				HSP Narrator
+
+				      *
+
+	       L.IN.OLEUM version, compiled for Windows 32-bit
+
+------------------------------------------------------------------------------
+
+- The latest HSP Narrator:
+
+	It takes about 180 kilobytes of disk space, 16 to 20 megabytes
+	of RAM to run, and a Pentium-or-better/clone processor.
+
+- How does it work?
+
+	Narrator takes a text file -called the "storybook file"- which name
+	can be selected via the "play story" option from the pull-down menu,
+	and parses the contents of that file, writing the results on the
+	screen. If you run Narrator alone it will search for a file called
+	EXACTLY "default.txt" and will consider it the default storybook file.
+	If you want to call your storybook file in another way, you can, but
+	the .txt extension must be there in lowercase, and you'll have to
+	test it in the following way:
+
+	- run The Narrator;
+	- click the menu button;
+	- select option "Play Story";
+	- navigate to the folder where your storybook file was saved;
+	- click the name of the file containing your storybook.
+
+	In the package you have downloaded there's a sample storybook file,
+	called "Alex's world.txt". It's a mostly descriptive work in which you
+	can explore my room, my house and what surrounds it, by impersonating
+	Martin, one of my two cats. It's presented to learn from: try playing
+	it for a little, to get an idea of how the Narrator works.
+
+- Features:
+
+	The Narrator is basically a SCRIPTING LANGUAGE, like Javascript.
+	It has a very simple dictionary of complessively 39 keywords.
+	In the storybook file, the keywords must always be in UPPERCASE,
+	to distinguish them from the rest of the text. The keywords are:
+
+	ACTUALLY, PLEASE, TITLE, EVERY, YREVE, WHEN/WELL, DONE, NOTE,
+	PUSH, TO, NOW, SAY, AND, BUT, OR, IF, FI, NO, NOT, NO LONGER,
+	NO MORE, NOTHING, NOBODY, STOP, CLAIM, INDICATE, SHOW, APPEND,
+	REPORT, ADD, SUBTRACT, MULTIPLY, DIVIDE, RANDOMIZE, FROM, BY.
+
+	They can be separated in:
+
+	"bookmarking keywords"
+		WHEN, WELL
+
+	"command keywords"
+		NOW, SAY, TITLE, ACTUALLY, PLEASE, PUSH...TO,
+		DONE, STOP, CLAIM, INDICATE...TO, SHOW, APPEND,
+		REPORT, ADD...TO, SUBTRACT...FROM, MULTIPLY...BY,
+		DIVIDE...BY, RANDOMIZE...BY, SEED.
+
+	"conditional keywords"
+		IF...FI, EVERY...YREVE, AND, BUT, OR,
+		NO, NOT, NO LONGER, NO MORE, NOTHING, NOBODY
+
+	About the CLAIM command:
+	it's a synonym of SAY, just writes with a different color.
+	It's supposed to be used to describe what happens, and make it
+	stand out in respect to the description of static parts of the
+	game's ambient. Or whenever you need to highlight some text...
+
+- VALIDATING THE STORYBOOK FILE:
+
+	*** THIS IS VERY IMPORTANT ***
+
+	A storybook file is just plain text.
+	To distinguish normal text files from storybook files,
+	I have introduced a special "cookie", to be placed at the beginning
+	of the storybook file. Narrator will ignore your storybook file's
+	contents at all, if you don't put this special mark inside it.
+	So be careful and don't mispell it:
+
+	Storybook files validator is the word STORY, typed all in
+	uppercase, and preceeded by a @ sign (at). Like so:
+
+		@STORY
+
+	If you don't write @STORY somewhere in your storybook file
+	(doesn't matter precisely where), The Narrator will consider
+	the text file as a normal text file, and won't play it as a
+	storybook, even if no load errors are found in it.
+
+	@STORY also is a synonym of "NOTE", and may be followed by an
+	introduction to your storybook's code. For subsequent notes, you
+	will use the keyword "NOTE": what's in a note block is never written
+	or parsed by the narrator.
+
+- GENERAL MECHANISM:
+
+	When the Narrator runs a storybook file, it executes it all for
+	a first time. Then it presents the results on the screen and waits
+	for the player to tell what he/she wants to do at that point, by
+	giving a little "crescent" cursor for the player to write with.
+	Whenever the player hits the ENTER key, the player answer is
+	split into single words, and the storybook file is read again,
+	*always entirely*. While the Narrator reads the storybook in
+	reply to an action from the player, it also checks some special
+	conditions defined in the storybook file, in order to react to
+	player's wishes. If *at least* one of these conditions is found
+	true, the Narrator executes what the storybook told it to do
+	when the condition(s) come(s) true. Otherwise, the Narrator puts
+	a big question mark nearby the mouse pointer, on the screen,
+	to signal the player that the storybook doesn't know what to do
+	with such an answer. Of course, how frequently this happens depends
+	on how many things you allow players to do in your game.
+
+- CLAUSES AND CONDITIONS:
+
+	What's a "clause" for Narrator?
+	A clause is a sentence you chosen to indicate that something has
+	happened or not, or that some kind of condition is true or false.
+	Clauses can be declared as true or false, throught the NOW keyword.
+	If you write:
+
+		NOW the player is in the kitchen
+
+	Narrator will take the sentence "the player is in the kitchen" and
+	declare it's a true clause. If, instead, you put any of the NO, NOT,
+	NO MORE, NO LONGER, NOTHING, NOBODY keywords inside the sentence,
+	the Narrator will declare the clause as false. See here:
+
+		NOW the player is NOT in the kitchen
+
+	Of course, as your story proceeds, you can change the actual status
+	of clauses (by just writing NOW... commands), and also check at any
+	time whether a certain clause is true or false: you can do that
+	using a couple of the "conditional keywords", which are IF and FI.
+	IF and FI are connected in a special structure, defining what to do
+	when the conditions come true. The IF...FI structure works this way:
+
+		IF the player is in the kitchen
+			SAY You're in the kitchen.
+			As long as you're here, why
+			don't you make some coffee?
+		FI
+
+	A very important thing to remember is that for each IF keyword you
+	put in the storybook, there must be a corresponding FI. Otherwise,
+	the Narrator will consider everything following IF as to be done
+	only when those conditions following the IF keyword come true.
+	Of course, you can "nidify" IF...FI structures. Nidifying means
+	putting a condition inside another condition. Here's an example:
+
+		IF the player is in the kitchen
+			SAY You're in the kitchen.
+			IF he can make some coffee
+				SAY As long as you're here,
+				why don't you make some coffee?
+			FI
+			IF he can NOT make some coffee
+				SAY Sorry, you can't find the moka.
+			FI
+		FI
+
+	The above example will cause Narrator to write, for instance,
+	"Sorry, you can't find the moka." only when the player is in
+	the kitchen but there's no moka, and he can't make the coffee:
+	only when these two conditions happen at the same time, because
+	the other IF...FI structure is nidified inside the first one.
+	Of course, in the logic of that story, the clause "he can make
+	some coffee" would become true only if the player had already
+	found the moka somewhere, and in reply to the command:
+
+		NOW he can make some coffee
+
+	Another thing you can do is using complex conditions.
+	Complex conditions are formed as IF...X...X...X...etc...FI
+	where each X is one of the operators AND, BUT, OR.
+	Writing:
+
+		IF the player is in the kitchen AND he can make some coffee
+			SAY Go on, make the coffee...
+		FI
+
+	I guess there's no need to explain how that works, eh?
+	And you can't say it's difficult... I did my best to keep it simple.
+
+	BUT is a synonym of AND. It does the same thing: makes the condition
+	true only if the two clauses separated by BUT are both true. Here's
+	an example about using the BUT keyword to make the storybook file
+	more readable (it sounds better than AND, in certain cases):
+
+		IF the player is in the kitchen BUT he canNOT make some coffee
+			SAY Tsk... you should definitely find
+			a moka, so you could make the coffee...
+		FI
+
+	When you use NO, NOT, NO MORE, NO LONGER, NOTHING, or NOBODY inside
+	a condition, it will reverse the way the condition is checked.
+	NO, NO MORE, NO LONGER, NOTHING, NOBODY are all synonyms of NOT:
+	they are provided to make conditions sound more "natural", and at
+	any time you can use the appropriate keywords to fit your conditions.
+
+- REACTING TO WHAT THE PLAYER WANTS:
+
+	Now you know conditions, and clauses.
+	Well, using the same conditional structures you can inquire about
+	which words the player used to tell the Narrator what he/she wants
+	to do at that point. This is done by specifying which words are to
+	be found in player's answers, in order for the condition to be true.
+	It's easy. It works like a search engine. See this example:
+
+	IF the player is in the kitchen AND he can make some coffee
+		IF the player did NOT make the coffee
+			SAY Go on, make some coffee...
+		FI
+		IF make coffee
+			SAY Oh, finally, what a good espresso!
+			NOW the player did make the coffee
+		FI
+	FI
+
+	Because "make coffee" isn't a clause defined somewhere in the
+	storybook, the Narrator takes the words "make" and "coffee" and
+	checks if both these words were used by the player to specify
+	what he wants to do. Remember: all the words you specified in
+	the condition must have been also specified by the player, so the
+	above example would not react to the player saying, for instance:
+
+		I want some coffee
+
+	because the word "coffee" is present in the answer, but the
+	word "make" is unfortunately not present. How do you make the
+	Narrator able to react even if the player says "want" rather
+	than saying "make"?? Well, you do that by declaring a synonym.
+	Synonyms in a condition string are declared by separating two
+	or more words with a slash. Here's how:
+
+		IF make/want coffee
+			SAY Oh, finally, what a good espresso!
+			NOW the player did make the coffee
+		FI
+
+	Which would react whenever the player uses word "coffee" along
+	with *one* of the other two words. Eh... of course, defining
+	the right words to control the story is the most difficult thing,
+	fundamentally because your story should be always able to understand
+	what the player wants to do. Now, to be sincere, that's pratically
+	impossible. So, your quest is: find a way to get as near as possible
+	to that "theoretically perfect behaviour". You'll have to use many
+	synonyms, and at the same time you should not abuse of them, or the
+	story will do something even if the player didn't want to do that.
+
+- BE CAREFUL WRITING THINGS IN THE CORRECT ORDER:
+
+	The Narrator reads your storybook from the beginning to the end,
+	either when it's first ran, or each time the player presses the
+	ENTER key on the keyboard. You have to write conditions and
+	commands considering their order, to avoid paradoxes, such as
+	descriptions talking about something that did not happen yet.
+	The way you organize your storybook is at your own choice, but
+	it must not be paradoxical. Take a look to the contents of
+	"Alex's world.txt" by opening it with a text reader, and see
+	the notes inside it to learn about a possible way to organize
+	the contents of the storybook. Despite the really easy way to code
+	it, you have to remember the storybook is *pratically a program*,
+	and it's always running from top to bottom.
+
+- BOOKMARKING KEYWORDS AND "TASKS APART":
+
+	WHEN or WELL
+	------------
+	They both serve the purpose of defining a bookmark.
+	They're synonyms and you can always interchange them as you wish.
+	As a personal convention, I'm using WHEN to setup normal bookmarks,
+	and WELL to setup "tasks apart". Keep reading to know what they are.
+
+	A bookmark is some point in the storybook where the Narrator can
+	jump to, while it's reading the storybook file, in reply to certain
+	actions of the user or to "jump" commands like ACTUALLY and PLEASE.
+	Example:
+
+	WELL try to open the door
+		IF the player has the key
+			IF the player can enter the room
+				SAY The door's open, already!
+			FI
+			IF the player can NOT enter the room
+				SAY The door's open.
+				NOW the player can enter the room
+			FI
+		FI
+		IF the player has NOT the key
+			SAY Sorry, you need the key.
+		FI
+	DONE
+
+	This is a thing I'm calling a "task apart".
+	It can be executed by writing a PLEASE command.
+	The bookmark, in this case, is called "try to open the door".
+	Once the task issues a DONE command, the Narrator returns to the
+	command next to that PLEASE command used to enter the "task apart".
+	In this case, it could be activated by writing:
+
+	IF open/unlock door
+		PLEASE try to open the door
+	FI
+
+	A thing you have to absolutely be aware of, when talking of the
+	"tasks apart", is that such tasks are read and executed as the
+	storybook goes by. I mean, when The Narrator finds your task,
+	it will execute it. So, if you want it to execute only when the
+	player effectively says "open the door" or something similar,
+	you will normally have to skip over the task in any other cases.
+	This can be performed by the ACTUALLY keyword. ACTUALLY means a jump.
+	It works exactly like PLEASE, but it cannot return when a DONE
+	command is found. Thus, it's ideal for skipping things when needed.
+	Here's an example of this:
+
+	ACTUALLY skipping the task to open the door
+	WELL try to open the door
+		IF the player has the key
+			SAY The door's open.
+		FI
+		IF the player has NOT the key
+			SAY Sorry, you need the key.
+		FI
+	DONE
+	WHEN skipping the task to open the door
+	IF open/unlock door
+		PLEASE try to open the door
+	FI
+
+	When The Narrator finds the ACTUALLY instruction, it skips over
+	to the "skipping the task to open the door" bookmark. Of course,
+	you don't need ACTUALLY and WHEN every time you declare a certain
+	task apart. You can put an infinite number of tasks apart between
+	ACTUALLY and WHEN.
+	And this should also explain why I'm calling them "tasks apart"...
+	while in programmers' jargon they're be called "subroutines".
+
+	One, possibly even better, way to declare groups of "tasks apart",
+	is the STOP keyword. "STOP" breaks execution of the storybook.
+	If you keep all your "real" code before "STOP", you can declare
+	all your "tasks apart" after "STOP", like my sample story does.
+
+	---------------------------------------------------------------
+	By the way: you *can* call tasks apart from inside tasks apart,
+	upto 1000 levels of recursion. When there are no more recursion
+	levels, execution would just be truncated...
+	---------------------------------------------------------------
+
+	Tasks apart are very, *very* important and they'll probably be a
+	great part of your whole storybook file. First because they can be
+	executed an infinite number of times, wherever it's needed, without
+	having to re-write them. And second, to realize how important they
+	are, absolutely read the following paragraph.
+
+	The Narrator allows putting hypertext links in the story, which will
+	appear as words or groups of words coloured in dark blue. When the
+	player clicks the mouse on one of these words, the Narrator will
+	execute one of the "tasks apart" defined in the storybook file.
+	A clickable hypertext link is defined by a PUSH...TO structure.
+	Any words between PUSH and TO will be part of the highlighted text.
+	So, in the following example:
+
+	SAY There's a PUSH door TO try to open the door SAY near the mirror.
+
+	What the player will see on the screen, will be:
+
+	There's a door near the mirror.
+
+	But the word "door" on the screen will be dark blue.
+	And when the player clicks on that word, the task apart I called
+	"try to open the door" will be executed, just like if it was invoked
+	by a PLEASE command. And after executing the task apart, the whole
+	storybook will be automatically executed again, to allow for changes
+	to show on the screen. Tasks apart can also write something to the
+	screen, and whatever they write will be presented starting from the
+	first line, while the rest of the text (written by the storybook
+	after it's been read again) will start after the last line written
+	by the selected task apart.
+
+	More than words, seeing how mouse-driven tasks apart work in
+	"Alex's world" will certainly help. You will notice the ability
+	to get upon the wardrobe, in the game, is not immediately given
+	to the player. The player must first discover it's possible, by
+	typing the right things on the keyboard. Since keyboard commands
+	are the most cool and old-fashoned thing in text-based adventure
+	games, you should remember not to abuse PUSHable links.
+	Their purpose is just to be "shortcuts", to keep the player from
+	getting bored by "hard typing" while re-doing knew things.
+	They are definitely interesting, and useful, but remember that
+	most of the thrill in adventure games was given by the "mysterious"
+	secrets to discover by writing commands on the keyboard.
+
+	PS. INDICATE...TO has the same function as PUSH...TO, only using a
+	different color for the link; rather than dark blue, it uses purple:
+	ideally, it might mark a set of game commands that does something
+	different from another set, like using PUSH...TO links to examine
+	things via textual descriptions or pictures of them, while using
+	INDICATE...TO links to perform physical moves.
+	But that's at authors' discretion.
+
+- PICTURES:
+
+	If you don't want your story to be completely text-based (although
+	that's not as bad as it may sound, because it leaves players free
+	to imagine the scenery), you may integrate your ambients' descriptions
+	with pictures. For "Alex's world", I've used bare photographs taken
+	with a Nikon Coolpix 2000 (of course scaled down from their original
+	1632x1224 size, to an average of 256x192). Anyway, you couldn't use
+	pictures larger than 320x240 unless you tweaked the executable (which
+	is perfectly possible and allowed by the GNU LGPL terms of use, but
+	you'd still need getting the L.in.oleum compiler).
+
+	The only format you can use for pictures is the PLZ (PhotoLizzie): it
+	has been specifically "invented" for this program, and performs good,
+	almost loss-less compression on photographs. You can covert TGA image
+	files (Truevision Targa format - several major graphics tools support
+	saving in that format: Adobe Photoshop, for example, which is the one
+	I've used for my pictures) throught option "packaging/save PhotoLZ",
+	and then navigating where you're holding your TGA file to select it.
+
+	About where to keep your converted PLZ files: you are compelled to
+	save and keep all of them, upto a maximum of 1000, within a folder
+	placed in the same folder where you're keeping the storybook file,
+	and whose name must be formed by the storybook's file name plus the
+	string "_files".
+	So, for "Alex's world.txt", the folder becomes "Alex's world_files".
+	That's the path where Narrator will look for PLZ picture files, when
+	your storybook decides to show one of them with:
+
+	SHOW my picture
+
+	...which would fetch file "yourstory_files/my picture.plz" and display
+	it aligned to the left margin of the storybook's text. To right-align
+	one such picture, you can replace "SHOW" with "APPEND": again, see my
+	sample story to get a more precise idea.
+
+- PLZ FORMAT:
+
+	Well, if you're curious to know how PhotoLizzie format works: it's
+	rather simple. It starts from a (forcely) true-color picture, and
+	separates the RGB channels forming the image, obtaining three planes
+	of pixels where each pixel takes 8 bit and shows intensities between
+	zero and 255. Then, for each plane, it takes first pixel's intensity
+	as a "starting value", and computes the rest of the pixels as the
+	difference between the next pixel and the previous one: that's what
+	it calls "vectorialization" of the image, because each pixel becomes
+	the value that's needed to reach the original intensity starting from
+	the pixel that preceeds it. In typical photographs, and in regularly
+	shaded computer graphics, this often results in a bunch of similar
+	values. For instance, image's first row of pixels on the red channel
+	may be something like:
+
+	100, 105, 108, 110, 116, 120, 116, 102, 105, 110, 100
+
+	now, because the converter will store red in 6 bits rather than 8,
+	to reduce the number of possible values, it'll divide all these by 4,
+	and here comes the slight "loss" of data (considering the sensitivity
+	of human eye in respect to different shades of red, green, and blue,
+	the blue component, where the eye performs worse, loses 3 bits and is
+	divided by 8)...
+
+	25, 26, 27, 27, 29, 30, 29, 25, 26, 27, 25
+
+	"vectorializing" which, results in:
+
+	25, +1, +1, 0, +2, +1, -1, -4, +1, +1, -2
+
+	where, for instance, code "+1" appears 5 times. In photographs, it
+	often happens that adjacent pixels show such repeating patterns, when
+	treated in that way. Then comes the "Lempel-Ziv" library included in
+	the L.in.oleum package, which is designed to be a very simple and fast
+	compressor/decompressor using a combination of variable-width LZ and
+	the LZ77 algorythm. Such an algorithm, like all loss-less compressors,
+	is based on reducing the size of "redundant" codes, and that's why
+	vectorializing the RGB planes may help reaching better compression
+	ratios. But hold on - none of the two methods, the "vectorialization"
+	and the LZ library, is supposed to be the world's best compressor for
+	a given datagram, yet together they give convenient results. A rather
+	good alternative may be the PNG format, for which Peterpaul Klein
+	Haneveld wrote a library, also found in the L.in.oleum package: if
+	you have some experience in changing L.in.oleum sources, you could
+	rather easily fit the program to eventually also load PNG files. From
+	my tests on my storybook's pictures, however, PNGs saved by Photoshop
+	compressed worse than PLZ. (With my full respect to the PNG algorythm
+	and the "deflate" method, of which my LZ library is a cheap imitation,
+	and even more respect given the amount of alpha-blending effects that
+	PNG pictures can support, but in this case I thought I'd better devise
+	my specific compressor to fine-tune it better to Narrator's needs: in
+	fact, PLZ is just perfect for my program's needs here.)
+
+- SPECIAL CONDITION CHECKS:
+
+	Well, let's say right now you should have understood the majority
+	of the concepts driving Narrator's adventure games. For some more
+	reasons, it's quite useful to have a couple of other conditional
+	syntaxes allowing to perform special actions. In particular, random
+	actions and timed events.
+
+	IF n% ... FI
+
+	This kind of clause, formed by a number (n) and the percent sign (%),
+	allows doing something which is randomized by a probability of n%.
+	A classical example: launching a die to write out the result.
+
+	WELL launch the die
+	SAY Result is:
+	WHEN try again
+	IF 17% SAY 1. ACTUALLY launched FI
+	IF 17% SAY 2. ACTUALLY launched FI
+	IF 17% SAY 3. ACTUALLY launched FI
+	IF 17% SAY 4. ACTUALLY launched FI
+	IF 17% SAY 5. ACTUALLY launched FI
+	IF 17% SAY 6. ACTUALLY launched FI
+	ACTUALLY try again
+	WHEN launched DONE
+
+	Because maximum probability is 100%, and a normal die has 6 faces,
+	100 divided by 6 gives 16.666666... as the probablity (in percent)
+	for a certain face to come on top after the die has been launched.
+	Since you're not allowed to put a decimal point (sorry, I'm keeping
+	things simple) in the probability, 16.666 can be approximated to 17.
+	That process isn't exactly right: there is also a little probability
+	that none of the results will come out at the first attempt, and
+	that's why the process is repeated in a loop until one of the results
+	is displayed. Similar tasks apart could be used, if you have enough
+	patience, to randomize the answers and descriptions from the game,
+	so that it's less boring when the player has to repeat certain actions
+	for a great number of times.
+
+	One more thing: IF n% AND clause BUT clause etc... also do work.
+	And a tip: to define a very low probability, you can make a couple
+	of randomized IF...FI structures one inside the other, like in the
+	following example, averagely coming true 1 time each 10,000:
+
+		IF 1%
+			IF 1%
+				SAY Very improbable.
+			FI
+		FI
+
+	...and it can also be written, for short, as...
+
+		IF 1% AND 1% SAY Very improbable. FI
+
+	...or you can also negate randomized clauses, like...
+
+		IF NOT 1% SAY This happens at 99% of probability. FI
+
+	That was simple to understand, but for a more precise kind of random
+	number generation there's the RANDOMIZE...BY command. It will be
+	examined later, in the paragraph concerning numeric variables.
+
+	Now the timed events:
+	their syntax is EVERY n ... YREVE
+
+	As you certainly noticed, in the same way FI closes an IF structure,
+	YREVE closes an EVERY structure. YREVE is EVERY spelled backwards,
+	in the hope this will help writers memorize the syntax.
+	However, for the sake of knowing it, FI and YREVE are synonyms:
+	you may use FI to close EVERY... structures, should you find it
+	easier and shorter to write.
+
+	EVERY n... YREVE
+	causes a certain block of instructions (enclosed between EVERY
+	and YREVE just like when you're writing IF...FI structures) to be
+	executed every n actions from the player, a single player's action
+	being defined as pressing the ENTER key or pushing a clickable link.
+	This way we can't exactly say they're somewhat "timed", but if you
+	think hard to it, you'll find "time" is a subjective concept: when
+	performing a lot of actions, or attempts, it's quite normal that the
+	main character in the story will see time speeding up a lot more than
+	when the character, and the player, is just pondering on what to do.
+	EVERY...YREVE is useful in a lot of cases. Here's a simple instance:
+	when you want to add weather changes in your games, you should use
+	that sort of structure. Pepper's story controls weather changes
+	exactly in this way: check it out...
+	Tip: EVERY... can also be negated as well, causing the condition to
+	become true for n-1 times out of n times. The right thing to write
+	is EVERY NOT n. And unfortunately, I admit, syntax rules do *not*
+	allow you to write what would certainly sound better: NOT EVERY n...
+	Final notes:
+		EVERY 1 	means every time
+		EVERY 0 	means never
+		EVERY -1	means every 1
+
+- VARIABLES AND ARITHMETICS:
+
+	Since v5.3.23, The Narrator supports a bare minimum of arithmetics
+	and logics. Known concepts of "true or false clause", in this optic,
+	become those of a variable which value is 1 (if true) or 0 (if false).
+
+	With the advantage that variables (and clauses), when manipulated and
+	tested with arithmetics/logics operators, may assume other integer
+	values as well: their range is always 0 to 100,000,000. If they get
+	below zero, they're forced back to zero; if they get over a hundred
+	millions, they're forced back to 100,000,000.
+
+	Assuming that every clause can be seen as a variable, being 0 when the
+	clause status is false, or 1 when it's true, you may also use the NOW
+	keyword to assign a specific value to a variable/clause, like this:
+
+	NOW my wallet = 100
+
+	...which stores value 100 into variable (or clause) "my wallet".
+	The equal sign is what distinguishes it from a simple true/false
+	clause assertion. Note that you can also set variables to other
+	variables, rather than numeric constants:
+
+	NOW your wallet = my wallet
+
+	...which, assuming it follows the above sample instruction, would
+	also set "your wallet" to 100, because that's the content of "my
+	wallet". Let's say you're now setting up a task apart in which you,
+	as the player, are trying to buy an expensive machete in a shop:
+
+	WELL, buy the machete:
+		NOW machete cost = 50
+		IF machete cost > your wallet
+			SAY You can't afford it.
+		FI
+		IF machete cost NOT > your wallet
+			SAY Here's your machete. Payment deduced. Thank you.
+			SUBTRACT machete cost FROM your wallet
+		FI
+	DONE
+
+	In the above code there's an operation: SUBTRACT...FROM, which can
+	take either "immediate numeric constants", ie values typed directly
+	in the code, or variables' actual contents. Such a routine could be
+	generalized to manage the "buying" of any kinds of object...
+
+	WELL, buy item:
+		IF item cost > your wallet
+			SAY You can't afford it.
+		FI
+		IF item cost NOT > your wallet
+			SAY Here's your item. Payment deduced. Thank you.
+			SUBTRACT item cost FROM your wallet
+		FI
+	DONE
+
+	...if you assume that such a thing would be called like so:
+
+	NOW item cost = 50
+	PLEASE buy item
+
+	There's also a test on values, symbolized by the "greater than"
+	operator. Such tests can be performed to also check for equality
+	and eventually negated. Watch carefully below, to find equivalents
+	for common operators like ">=", "<=" and "!=", in Narrator's syntax:
+
+	IF a > b SAY A is greater than B FI
+	IF a < b SAY A is smaller than B FI
+	IF a NOT > b SAY A is smaller than or equal to B FI
+	IF a NOT < b SAY A is greater than or equal to B FI
+	IF a = b SAY A is equal to B FI
+	IF a NOT = b SAY A is not equal to B FI
+
+	With variables, simple calculations and tests, you can do many things,
+	including perfectioning the "throw die" thing previously written
+	with imprecise percentage conditions...
+
+	RANDOMIZE die result BY 6
+	REPORT die result
+
+	...where you see the use of the "REPORT" keyword: it prints out the
+	value of the variable/clause that follows. It'd print 0 for a false
+	clause, 1 for a true clause.
+
+	As long as we speak of RANDOMIZE, there's an additional command that
+	allows to set the "seed", a number from which the random sequence
+	will generate. From the same seed, you always get the same random
+	sequence. The command is SEED, and must be followed by a numeric
+	value or by a variable's name. For e.g.
+
+	SEED 12345
+	SEED myvariable
+
+	Other things to try with variables are "loops", for which I'd suggest
+	taking a look at the "poker processor" example. They also come handy
+	in typical cases when you're setting up your game territory map by
+	assigning a numeric identification code to each ambient, like:
+
+	NOW kitchen = 1
+	NOW living room = 2
+	NOW bedroom = 3
+	NOW garden = 4
+	...
+	NOW current ambient = living room
+	...
+	IF current ambient = kitchen SAY You're in the kitchen. FI
+	IF current ambient = living room SAY You're in the living room. FI
+	IF current ambient = bedroom SAY You're in the bedroom. FI
+	IF current ambient = garden SAY You're in the garden. FI
+
+	You'll find, by comparing this with what "Alex's story" does when
+	moving the player to another ambient, that "NOW current ambient = ..."
+	is much shorter than asserting a set of clauses to "false" to later
+	assert only one of them is true.
+
+	The remaining possible operations that can be done on variables are
+	visible in the "narrator calculator" example file. To recap them here,
+	they are: addition, subtraction, multiplication, division, and
+	randomization.
+
+	Some final remarks: no variable can contain floating-point values,
+	no variable can contain negative values, and dividing something by
+	zero returns 100,000,000 as the result, in a pale attempt to simulate
+	infinity.
+
+- THE SPECIAL VARIABLES: "INPUT" AND "EPOCH"
+
+	There's a special, predefined variable, called INPUT (all uppercase),
+	that plays a key role for determining and checking quantities that the
+	player might need to communicate to the game at a certain point. For
+	example, an offer to a merchant.
+
+	INPUT takes the value of whatever digits appear in player's answer,
+	by simply concatenating the digits and skipping letters and signs
+	between them. Some examples:
+
+	PLAYER ANSWER			INPUT =
+
+	I have 1,000 coins.		1000
+	Go to floor 8.			8
+	Today is June 3rd, 2005 	32500
+	Copyright 2004-2005		100000000
+
+	Especially note last two cases: you might not encourage the player to
+	place two or more numbers at a time in the same answer, because they
+	would become a single, large number. And in the case of the copyright
+	message, their "merging" exceeds the ceiling of Narrator's integer
+	numbers, and is renormalized to 100 million.
+
+	Short (and funny) example showing how to deal with INPUT:
+
+	IF donate coins
+		IF INPUT <= wallet
+			SUBTRACT INPUT FROM wallet
+			ADD INPUT TO unrecoverably lost funds
+			IF INPUT < 1000
+				SAY Thank you.
+			FI
+			IF INPUT >= 1000
+				SAY Thank you very much, imbecile!
+			FI
+		FI
+		IF INPUT > wallet
+			SAY You don't have so much to donate.
+		FI
+	FI
+
+	would react to "donate 100 coins" by subtracting 100 from "wallet".
+	The check on money availability wouldn't be needed, but it's there
+	for the sake of showing that INPUT behaves normally in conditions.
+
+	Another useful special variable is EPOCH (still entirely uppercase),
+	which value is the number of seconds that have passed since the
+	beginning of the year, thought a simplified calendar that uses UTC,
+	Universal Time Coordinated, to get rid of local time zones and show
+	the same value (at the same time) everywhere in the world, and where
+	every month has 31 days, so you could do simple calculations to know
+	the actual month, day, and time of day. One of the most immediate
+	uses of EPOCH is: seeding back a random value to the random numbers'
+	generator, with...
+
+	SEED EPOCH
+
+	...which would pratically undo what SEED <x> did, where <x> was some
+	non-random numeric value or variable name. In effects, this kind of
+	operation is also exactly what the program does when it starts up.
+
+- THE SITUATION FILE:
+
+	When the player presses the ESCAPE key or pushes the close button
+	in the upper left corner of the Narrator's display window, current
+	game situation (truth and falsity for clauses, and the number of
+	moves been made - for continuity with EVERY... structures) is saved
+	to a file called "Title of the story.inf" where the string
+	"Title of the story" is processed by changing the txt extension
+	normally following the name of the storybook file.
+	Usually, the Narrator reloads game logics from that file when the
+	game is re-entered, so that the player won't have to redo the
+	adventure from the beginning...
+
+	However, if you change the name of the storybook, or if you change
+	something inside the story, the Narrator won't be able to fit the
+	game logics file with the new version of the storybook file, and it
+	will restart the story anyway, also deleting the game logics file.
+	This would normally never happen when the story is ready to be
+	played (when you -the writer- have finished debugging it, and made
+	sure everything works for good), but it will be certainly needed
+	during the developement of the story.
+
+	A tip: if you want to try out a certain situation without having
+	yourself to redo the story until that point, you can just "force"
+	the game from inside, to reach immediately that point, by setting
+	up the proper conditions as the game initializes its clauses.
+	See, for a good example, how my sample story sets up its initial
+	conditions.
+
+	Finally: what if the player dies during the story and therefore
+	there's the NEED to restart the situation?? Well, if you consider
+	what I said right above, it's easy to understand what you should
+	do when the player dies: execute the initialization section again!
+
+	The initialization works that way because when the Narrator finds
+	an occurrence, in a conditional structure, of a clause which has
+	never been initialized for truth or falsity, it considers it false
+	by default. Also, this means you have to be careful when spelling
+	your clauses in conditional instructions: if you mispelled them,
+	they would always be considered false, but no error would be given.
+
+- A QUESTION OF STYLE:
+
+	The Narrator ignores the way you format the storybook file.
+	You can put spaces, caret returns, void lines, tabulations and suchs
+	wherever you like. Such "text formating codes" are always ignored.
+	Just a thing: when you want to insert a REAL caret return in the
+	story's text after a "SAY" command, use the reverse slash (\).
+	Each reverse slash means a caret return, so that \\ would leave
+	a void line on the screen, very useful to separate paragraphs.
+	In the same way, a blank space outside of a sentence is marked by
+	using the underscore sign, this one: _
+
+	*Anyway* you should try and choose a comprehensible style, when
+	writing your stories. It's at your own discretion, but certainly
+	it would be a mess if you tried to write a storybook file like so:
+
+	WELLtrytoopenthedoorIFtheplayerhasthekeySAYThe door's open.
+	FIIFtheplayerhasNOTthekeySAYSorry, you need the key.FIDONE
+
+	If you try this out, you'll realize the Narrator doesn't absolutely
+	get confused. The difference would be for you - the human writer!
+	Also, to avoid wasting time with the "shift" key, you could keep
+	clauses always written in lowercase, except for when they contain
+	names... in any cases, *never* write something all in uppercase,
+	because what you write may be taken for a command by the Narrator.
+	I'm afraid, but there's very little I can do about this: you have
+	almost total freedom writing your stories, but you can't write your
+	clauses and texts all in uppercase.
+
+	The NOTE keyword allows writing a comment.
+	Comments can contain whatever you want, except commands.
+	You can use comments to separate different sections of your story
+	with highly visible marks, such as:
+
+	NOTE ------------------------- tasks apart -------------------------
+
+	When the story gets longer, it will simplify searching for a given
+	section while editing the storybook file...
+
+	Last but not least: indenting structures, like IF...FI, EVERY...YREVE,
+	and WELL...DONE, will certainly avoid lots of errors and weird effects
+	given by structures you may have not closed correctly. Indenting means
+	shifting the text to the right by one "tab stop" while you're inside
+	a structure; just what I've been doing throught all this manual.
+	However, for complex stories, you will soon get the code to extend for
+	a hundred or more columns because of heavy indenting. That's why I'd
+	take the occasion to mention the way I wrote "Alex's world" code, and
+	the program I used. The program is ConText, by Eden Kirin, and it's a
+	free text editor available at: http://www.context.cx
+	It has many useful options, among which is the possibility to decide
+	how many spaces might each block be "indented" in respect to its
+	parent block. Rather than being compelled to use a fixed tab stop,
+	which may be then interpreted differently by other text editors and
+	readers, you get the possibility of using simple blank spaces, which
+	look the same pratically everywhere. Yet, while the editor will manage
+	tabulations of your own chosen size automatically, it can also reduce
+	the final, physical size of your storybook file, if you select option
+	"force tabs" as the "tabs save mode" in "environment options".
+	ConText has many other very useful features, like that of highlighting
+	the syntax of many pre-defined programming and text-markup languages,
+	among which you could create your own custom highlighter file to
+	reflect The Narrator's own syntax.
+
+- TERMINATING THE STORY:
+
+	The storybook file must be terminated by a command.
+	This last command will not be executed, but it's needed for the
+	Narrator to execute the command preceeding it. Yes, because the
+	Narrator parses a certain command only when it finds the next one.
+	This allows parsing the parameters to a command while it scans the
+	storybook file looking for the next, speeding up the process of
+	reading the storybook file. This process is indeed terribly fast,
+	mainly due to the fact that The Narrator is written in L.in.oleum.
+	To terminate the storybook file you may use any commands, but for
+	the relish of making it comprehensible you may simply use DONE.
+
+	When you're done writing your story, it would be better to give it
+	a title. The TITLE command is here for this. Normally, the title
+	should match the name of the storybook file... but if you don't
+	issue a TITLE command, the title of your story won't be displayed
+	on the title bar of Narrator's window... that's it.
+
+	Hmm... in theory, TITLE should be specified only once in the story.
+	But pratically, it's a normal command, and if you specify it in
+	different places of the story, it will simply change the title bar
+	every time. You may also decide to use TITLE to quickly inform the
+	player about which is the current place, or ambient. But definitely
+	it's at your own choice...
+
+- NARRATOR's LIMITS:
+
+	Well, of course The Narrator can't parse storybook files of
+	arbitrary size and complexity. There are high limits, but there
+	are limits to both the size of your storybook file and to the
+	number of different clauses and bookmarks you can use in it.
+
+	The maximum size of the storybook file is 2 megabytes.
+	This means 2,097,152 characters of plain text.
+	About the size of an average dictionary...
+
+	The maximum number of different clauses/bookmarks is 16,384.
+	This means using a different clause or a different bookmark
+	every 128 characters, while the storybook file is 2 megabytes.
+
+	Sincerely, I think such limits should fit almost any kinds of story.
+
+	Alternatively, The Narrator's code being under GNU LGPL, you can make
+	your own changes to the set of constants, declared in the source code,
+	under comment "fundamental storybook complexity and memory limits",
+	and then recompile The Narrator with the L.in.oleum compiler. In the
+	notes at the beginning of the program's source code, informations
+	about L.in.oleum and how to rebuild the program are given.
+
+- PACKAGING THE STORY:
+
+	You can sell your stories or give them out for free.
+	I'm not claiming any financial obligations: do what you want,
+	EXCEPT asking for money if distributing The Narrator itself!!!
+	The fact that I'm allowing people to give out the Narrator along
+	with their storybook file(s) is just to let writers spread their
+	stories in the wide world with total freedom. If you want to make
+	some money with it, make a funny and interesting adventure, ask for
+	fair compensation, and that's it...
+
+	A comfortable, recommended way to package your stories is making them
+	self-executable archives, with the "package story" option, which shows
+	a file selector for you to indicate which storybook file is to be
+	packaged. The resulting executable file will include every file that's
+	needed to play your story.
+
+	You can credit yourself for the story rather easily: by adding...
+
+	IF show story credits
+	  SAY Copyright [dates] by [names]...
+	FI
+
+	...or something more elaborate, that could also include pictures, and
+	would show like a normal ambient's description, should the player
+	select "story credits" from the pull-down menu, Narrator would look
+	for such conditions if the storybook and execute them.
+
+- THAT's ALL, FOLKS!
+
+	I have been thinking hard, and decided these should really be the
+	fundamental bricks to build nice adventure games. A few suggestions
+	will follow, in order of importance, to give you some hints about
+	how to write funny adventures.
+
+	1) DON'T BE TOO LONG IN DESCRIPTIONS!
+	It's not really needed and it's normally very tedious.
+	That's *also* why I decided not to make the screen able to scroll.
+	20 lines is all you have, before the text cursor vanishes below the
+	bottom edge of the window. Averagely, to consider for possible
+	variations and messages from tasks-apart, try to keep your
+	descriptions always within 11-13 lines.
+	More specifically, try to write brief-but-dynamic descriptions,
+	sensitive to changes in the story.
+
+	2) ALLOW PLAYERS TO TRY AND DO ANYTHING WITH ALL WHAT YOU DESCRIBE!
+	Even if it sometimes looks ridiculous. EG a player wants to open
+	a certain door, but he/she hasn't got the proper key. At this point
+	the player could think about tearing down the door: even if your
+	game doesn't consider it as a possibility to enter a certain place,
+	REPLY to the player. Say it's impossible for some reason, but you
+	should definitely reply. Always, for anything you think the player
+	may think to do... of course, in relation to what you said about
+	current ambient. If there's a table... let the player sit on it,
+	burn it, destroy it in some way... even if it's all useless!
+
+	3) MAKE SMALLER STORIES INSIDE THE MAIN STORY!
+	Consider the consequences of certain acts. Let's say the player
+	chosen to destroy that table I was talking of. Let's say it was
+	possible because the character's very strong... if the table was
+	not belonging to the character, well... someone may get upset when
+	this "someone" would discover the table broken down to pieces.
+	At this point the character may decide to take a quick escape, or
+	to engage in a fight with the owner of the table... or to excuse...
+	in a nutshell: consider the consequences. Of course, at a certain
+	point, you'll have to stop worrying, but even in this case you
+	should obviously try to do it in a reasonable way.
+
+------------------------------------------------------------------------------
+
+					Regards,
+
+					  Alexander The Great
+					  Home Sweet Pixel software

@@ -1,0 +1,3 @@
+"stockfile"
+
+	/build/sys/feather, 36h, ffffc500h;

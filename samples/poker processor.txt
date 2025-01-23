@@ -1,0 +1,80 @@
+@STORY
+
+WHEN starting over:
+
+RANDOMIZE first value BY 13, RANDOMIZE first seed BY 4
+RANDOMIZE second value BY 13, RANDOMIZE second seed BY 4
+RANDOMIZE third value BY 13, RANDOMIZE third seed BY 4
+RANDOMIZE fourth value BY 13, RANDOMIZE fourth seed BY 4
+RANDOMIZE fifth value BY 13, RANDOMIZE fifth seed BY 4
+
+NOW value = first value, NOW seed = first seed, NOW card = 1
+PLEASE look for duplicates: IF there are duplicates, ACTUALLY starting over FI
+
+NOW value = second value, NOW seed = second seed, NOW card = 2
+PLEASE look for duplicates: IF there are duplicates, ACTUALLY starting over FI
+
+NOW value = third value, NOW seed = third seed, NOW card = 3
+PLEASE look for duplicates: IF there are duplicates, ACTUALLY starting over FI
+
+NOW value = fourth value, NOW seed = fourth seed, NOW card = 4
+PLEASE look for duplicates: IF there are duplicates, ACTUALLY starting over FI
+
+NOW value = fifth value, NOW seed = fifth seed, NOW card = 5
+PLEASE look for duplicates: IF there are duplicates, ACTUALLY starting over FI
+
+SAY You have:\
+NOW value = first value, NOW seed = first seed: PLEASE describe card
+
+SAY ,\
+NOW value = second value, NOW seed = second seed: PLEASE describe card
+
+SAY ,\
+NOW value = third value, NOW seed = third seed: PLEASE describe card
+
+SAY ,\
+NOW value = fourth value, NOW seed = fourth seed: PLEASE describe card
+
+SAY ,\
+NOW value = fifth value, NOW seed = fifth seed: PLEASE describe card
+
+STOP
+
+WELL, look for duplicates:
+  NOW there are NO duplicates
+  IF value = first value AND seed = first seed BUT card NOT = 1
+    NOW there are duplicates
+  FI
+  IF value = second value AND seed = second seed BUT card NOT = 2
+    NOW there are duplicates
+  FI
+  IF value = third value AND seed = third seed BUT card NOT = 3
+    NOW there are duplicates
+  FI
+  IF value = fourth value AND seed = fourth seed BUT card NOT = 4
+    NOW there are duplicates
+  FI
+  IF value = fifth value AND seed = fifth seed BUT card NOT = 5
+    NOW there are duplicates
+  FI
+DONE
+
+WELL, describe card:
+  IF value =  1 SAY an_ace_	FI
+  IF value =  2 SAY a_two_	FI
+  IF value =  3 SAY a_three_	FI
+  IF value =  4 SAY a_four_	FI
+  IF value =  5 SAY a_five_	FI
+  IF value =  6 SAY a_six_	FI
+  IF value =  7 SAY a_seven_	FI
+  IF value =  8 SAY an_eight_	FI
+  IF value =  9 SAY a_nine_	FI
+  IF value = 10 SAY a_ten_	FI
+  IF value = 11 SAY a_knight_	FI
+  IF value = 12 SAY a_queen_	FI
+  IF value = 13 SAY a_king_	FI
+  IF seed = 1 SAY of_hearts	FI
+  IF seed = 2 SAY of_diamonds	FI
+  IF seed = 3 SAY of_clubs	FI
+  IF seed = 4 SAY of_spades	FI
+DONE

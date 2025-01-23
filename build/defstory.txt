@@ -1,0 +1,39 @@
+@STORY
+
+IF show story credits
+
+	CLAIM Credits: this is simply a placeholder for a non-existing storybook.
+
+FI
+
+IF hello narrator
+
+	CLAIM Hello Player!
+
+FI
+
+IF NO hello narrator AND NO show story credits
+
+	CLAIM No story loaded:
+	SAY _file "default.txt" not found in program's folder.
+
+FI
+
+SAY    \Please select storybook file to load by clicking on the menu button
+	- the button in the upper right corner which reads "options" - then
+	select the "Play Story" option. A file	selector will open, listing
+	all files ending by ".txt": to play one of those, click it.
+	Should you be downloading stories in the future, you could keep 'em
+	in this folder, for comfortable selection throught the same menu...\
+
+	Should you be willing to learn how to write a storybook, please see
+	"How to use The Narrator.txt": the file explains the basics of this
+	Interactive Fiction interpreter. The syntax has been designed to be
+	as similar as possible to plain english, at least in my intentions.
+
+	Below the bar you see a small crescent: it is the user input prompt
+	cursor. By typing there, and if the story has been told to react to
+	your particular sentence, you may advance in the game.
+	Try typing "hello narrator" there for an example: this sample story
+	file, embedded inside The Narrator executable file itself, has been
+	told to react to it...

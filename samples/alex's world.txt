@@ -1,0 +1,848 @@
+@STORY
+
+
+
+     what follows is some generic initialization code, for when the game is found to be in
+     a "clean" state, ie. never played before, or in some way just "reset" to its intended
+     initial state: it relies on clause "the game was played before", which has never been
+     asserted with a "now" statement, and is therefore supposed to be false, when someone
+     loads up this storybook for the first time. The if...fi block that follows will setup
+     initial states for every significant clause in the game. It's a good thing to include
+     here all the operations that, together, could bring the game back to its clean state,
+     at any time. In the future, one could be willing to have the player "die", or compell
+     the player to restart... this storybook isn't the case, but speaking in general, once
+     such a piece of code is given all it needs to reset the game state, some other points
+     of the storybook would simply have to assert that "the game was -not- played before",
+     whenever the player will have to restart...
+
+
+
+IF the game was NOT played before
+
+  PLEASE setup new description: NOTE there's initially no objects to describe
+  PLEASE setup new location: NOW you're on Alex's room floor
+
+  NOW you have NOT learned to climb the wardrobe
+
+  NOW the game was played before
+
+FI
+
+
+
+NOTE:	what follows is code to process textual player input... if you're reading this file
+	just out of curiosity but you don't want to spoil the fun, you'd better skip this part
+	--------------------------------------------------------------------------------------
+	SPOILERS BELOW	  SPOILERS BELOW    SPOILERS BELOW    SPOILERS BELOW	SPOILERS BELOW
+	--------------------------------------------------------------------------------------
+
+
+
+IF jump/go/get up/on/upon/onto chair OR climb chair
+
+  PLEASE jump on Alex's chair
+
+FI
+
+
+
+IF jump/go/get up/on/upon/onto wardrobe OR climb wardrobe
+
+  IF you're on Alex's wardrobe
+
+    CLAIM You're already on Alex's wardrobe...\
+
+  FI
+
+  IF you're NOT on Alex's wardrobe
+
+    IF you're NOT on Alex's chair
+
+      CLAIM The top of the wardrobe is two meters high: you're unable to
+	    jump there from the floor. You'd need some sort of smaller
+	    thing to climb upon first: for sure, something that must be
+	    also very near to the wardrobe itself.
+
+      INDICATE _[cancel warning] TO cancel the warning
+
+      NOTE: because the above advice is rather long, to avoid getting out of the display
+	    with the rest of the descriptions, at this point I'll stop execution, so...
+
+      STOP
+
+    FI
+
+    IF you're on Alex's chair
+
+      PLEASE jump on Alex's wardrobe
+
+    FI
+
+  FI
+
+FI
+
+
+
+NOTE:	what follows is code to describe the ambient and generally what surrounds the player,
+	where the "ambient" is supposed to a generic description of the player's location, as
+	reported, at a given time, by clauses like "you're here...", "you're there..."
+
+
+
+IF we might NOT witheld the ambient description
+
+  IF you're on Alex's room floor
+
+    TITLE Welcome to Alex's room
+    SHOW Alex's room
+
+    SAY This bedroom is about 5 meters long and 3 meters and a half wide,
+	oriented east (door side) to west (window side). Assuming you just
+	entered from the room's door, and facing west, the window would
+	be on the wall in front of you, spanning for a couple arms, its
+	right edge a few centimeters away from the right-side wall. The
+	window is a tall one, formed by two glassy doors, and leads out to
+	the room's balcony.
+	The door would be on the wall behind you: it's slightly smaller
+	than the window, and lays at a few centimeters from the left wall.
+	The room spoils very simple furniture: PUSH _bed_ TO jump on Alex's
+	bed SAY (to the right of you); PUSH _wardrobe_ TO examine Alex's
+	wardrobe SAY (to the left); PUSH _desk TO jump on Alex's desk SAY,
+	PUSH _chair TO examine Alex's chair SAY, PUSH _lamp_ TO examine Alex's
+	lamp SAY (left of the window).
+
+  FI
+
+  IF you're on Alex's desk
+
+    TITLE Alex's desk
+    SHOW Alex's desk
+
+    SAY Like the rest of the room's furniture, the desk looks simple and
+	linear: it's a large wooden box missing bottom and front sides.
+	Like the PUSH _wardrobe TO examine Alex's wardrobe SAY, it's a
+	cheap kind of wood, coated with plastic imitating natural wood:
+	it's a brighter shade than the wardrobe, though. The desk is
+	relatively strong because of its panels' thickness (about a couple
+	inches). Left to right, the desk holds a PUSH _17" LCD flat panel
+	monitor TO examine Alex's monitor SAY, its PUSH _power supply TO
+	examine Alex's monitor power supply SAY, a PUSH _56K external modem
+	TO examine Alex's modem SAY, PUSH _Alex's computer TO examine
+	Alex's computer SAY, the PUSH _UPS_ TO examine Alex's UPS SAY and
+	PUSH _an HP Deskjet 450 printer TO examine Alex's printer SAY.
+	In front of all that stuff lay the PUSH _keyboard_ TO examine Alex's
+	keyboard SAY and the PUSH _mouse TO examine Alex's mouse SAY.
+	Behind the printer there's PUSH _a clay kitten_ TO examine Alex's
+	coins keeper SAY in which Alex keeps only 1 and 2 euros coins.
+	Scattered all over the desk are lighters, discs and diskettes,
+	papers, pens, ashes, a large PUSH _crystal ashtray_ TO examine
+	Alex's ashtray SAY and a PUSH _pack of cigarettes TO examine Alex's
+	cigarettes SAY.
+
+    INDICATE _[descend from the desk] TO descend from Alex's desk
+
+  FI
+
+  IF you're on Alex's bed
+
+    TITLE Alex's bed
+    SHOW Alex's bed
+
+    SAY It's a simple "turkish bed", basically a robust, rectangular,
+	horizontal plate of wood with four cylindrical legs near each
+	corner. It's painted in a yellowish shade of white, similar to
+	ivory. The plate is two meters and a half long, 120 centimeters
+	wide, and one span tall above the floor. Laying on the cyan blue
+	blanket is a set of five small, square cushons: two are red, one
+	is sunshine yellow, the fourth is barely the same shade of cyan
+	as the blanket, and the fifth is navy blue. Against the east wall,
+	where the head's cushon forms a bump in the blanket, between the
+	materace and the wall, two additional grass-green cushons are
+	stuck, to ideally keep the head's cushon from slipping half-way
+	out of the materace while sleeping, but they don't work well.
+
+    INDICATE _[descend from the bed] TO descend from Alex's bed
+
+  FI
+
+  IF you're on Alex's wardrobe
+
+    TITLE Fottifoh: the King of the Wardrobe
+    SHOW Fottifoh
+
+    SAY Well, Fottifoh got his name out of the blue, as something Alex
+	mumbled while preparing warm milk for his then-small sister,
+	precisely on April 11th, 1992. His sister Alessandra was only 6
+	at that time: Alex had to watch over her while parents were away,
+	in the morning. The name means barely nothing, except that Alex
+	liked the childish - he says - sound of it. Fottifoh is a soft,
+	furry, yellow teddybear with funny curled ears, four round paws,
+	black plastic shiny eyes, and a head almost as big as the body,
+	shaped at mid way between a sphere and a mushroom's umbrella.
+	Paws, protending towards the observer as in embrace, are coloured
+	blue, pale green, purple, cyan (in clockwise order facing Fotty);
+	ears' interior fur reprises hind (bottom) paws' colors.
+
+    INDICATE _[look down] TO look down at Alex's desk
+    INDICATE _[descend from the wardrobe] TO descend from Alex's wardrobe
+
+  FI
+
+  IF you're on Alex's chair
+
+    SHOW upon Alex's chair
+    PLEASE display Alex's chair description
+
+    INDICATE _[descend from the chair] TO descend from Alex's chair
+
+  FI
+
+FI
+
+
+
+NOTE:	what follows describes some kind of detail, when the ambient isn't to be described,
+	on itself, because the player is "examining" something in particular... such details
+	are always described while clause "we might witheld the ambient description" is true:
+	this causes the previous, large if...fi block to be entirely skipped, because having
+	both the ambient's description and an object's description on the display at the same
+	time would leave too little room for each description. It must be possible to return
+	to the ambient's description, so there's an appropriate hyperlink, leading to the
+	subroutine called "quit description and look around", for this particular function:
+	the hyperlink is given by an "indicate" command at the end of the following if...fi
+
+
+
+IF we might witheld the ambient description
+
+  IF examining Alex's chair
+
+    SHOW Alex's chair
+    PLEASE display Alex's chair description
+
+  FI
+
+  IF examining Alex's wardrobe
+
+    TITLE Alex's wardrobe
+
+    SAY The wardrobe can be described as a bare box, two meters tall, one
+	meter and a half wide, and half a meter thick. It's made of cheap
+	wood, but looks better because of the plastic texture covering its
+	sides to simulate natural wood appearence. It's got two large
+	doors, below which are a couple drawers, and on the left side is
+	one further door, tall and narrow, spanning from the bottom
+	(laying straight on the floor) to the top of the wardrobe.
+	All doors and drawers' front panels are painted in the same colour
+	as the bed's plate (simil-ivory), while sides imitate an ocra shade
+	of nut wood. High on top of the wardrobe there's Alex's set of
+	teddybears, among which you can see PUSH _Fottifoh TO look at Fottifoh SAY.
+
+  FI
+
+  IF examining Alex's monitor
+
+    TITLE Alex's monitor
+
+    SAY It's a 17" LCD flat panel monitor, with a contrast ratio of 1:450,
+	and it's quite brilliant. Alex bought it at the beginning of 2005,
+	and had a bit of troubles reconfiguring xf86 on Linux to make the
+	X server use 1280x1024 instead of 1024x768. The extra resolution
+	initially seemed even too much to Alex, but now that he got used
+	to it, he would never intentionally go back to use a 15" monitor
+	in 1024x768, despite claiming he loved that resolution before...
+	Alex is reasonably proud of his monitor, the only drawback being
+	that it won't properly support 512x384. This is extremely annoying
+	in Alex's opinion: he still loves that resolution.
+
+  FI
+
+  IF examining Alex's monitor power supply
+
+    TITLE Alex's monitor power supply
+
+    SAY Hmf... it's a black plastic box with a green led on top,
+	signalling it's plugged in. It's rather annoying that it's
+	separated from the monitor itself, so you have to keep one more
+	device somewhere, and one more cable connecting the power supply
+	to the monitor. Alex hates to keep such stuff under the desk,
+	because it'd be an obstacle for when he stretches on the chair.
+
+  FI
+
+  IF examining Alex's modem
+
+    TITLE Alex's modem
+
+    SAY It's a simple 56K external serial modem, branded "Trust".
+	It has one main advantage and one main problem: the advantage
+	is that it'll work with anything without needing - bleach -
+	drivers. The problem is that it's absurd to be compelled to
+	access the internet in 2005 with such a connection speed,
+	because the house area isn't reached by something better.
+	Alex's connection is a flat-rate, but it's not always-on,
+	because in this crappy land no always-up connections for
+	modem users are evidently supposed to exist. They know you
+	have no choice. Yeah, of course, Alex won't even try out an
+	intrinsically crappy satellite connection...
+
+  FI
+
+  IF examining Alex's computer
+
+    TITLE Alex's computer
+
+    SAY It's relatively small, say a mini-minitower: aluminium case,
+	plastic light-grey front panel, lots of connectors both on
+	its front and rear sides. Generally looking good except for
+	the toy styling of the front panel, with blue leds that were
+	evidently supposed to look groovy by the producer. Ah, the
+	producer is uncertain. Features include 512Mb sluggy memory,
+	a decent 80Gb internal hard drive, a DVD+R writer (the last
+	one ever produced that's not dual-standard), a lovely good
+	old floppy drive, and myriads of USB's, Firewires and even a
+	couple SPDif connectors ("advanced", yet completely useless).
+	Overall, Alex thinks it can't be more crappy than today's
+	average, as a pff... "puter" (says the C64 was a Computer, in
+	the proper spirit, later ones having rotten away).
+
+  FI
+
+  IF examining Alex's UPS
+
+    TITLE Alex's UPS
+
+    SAY A plastic box: the above cover is white, the base is black.
+	It's a heavy piece of machinery that's supposed to power the
+	computer and its monitor for at least a few minutes when the
+	lights go out. Typically, it will safely last for as much
+	as one WHOLE minute before its battery gives up, so you have
+	plenty of time to "comfortably" suspend the session and properly
+	find it saved for next time. If it goes well. If not, nobody
+	could tell what will be of the operating (operating?) system,
+	or of Windoze's MFT, or of the hard disk's master boot record,
+	or of the whole computer if at that point Alex decided to give
+	it a flight lesson...
+
+  FI
+
+  IF examining Alex's printer
+
+    TITLE Alex's printer
+
+    SAY It's an HP Deskjet 450, a portable printer featuring battery
+	and IR interface, originally bought to match the fact that
+	Alex's former computer was a laptop (it still is, but unused).
+	The top half of the (plastic, obviously) cover is silver grey,
+	the bottom half being dark grey. It prints well, specially
+	since Alex dismantled its cover to "make the instrument more
+	accessible" (no way to get rid of the absurdical Torx screws in
+	a polite way) and removed an evidently superfluous paper guide
+	from the sheet loading mechanism, when the printer started to
+	refuse to load up sheets. Alex now likes the printer more than
+	before because he could see "what was inside".
+	Oh, yes, the printer also has its own annoying power supply
+	black box (lays near the UPS), what did you expect?
+
+  FI
+
+  IF examining Alex's keyboard
+
+    TITLE Alex's keyboard
+
+    SAY A very simple, very cheap, 13-euros 105-key US standard keyboard.
+	Alex hates the italian keyboard layout, which sacrificies curly
+	brackets and the tilde, in favor of stupid accented vowels.
+	More generally, Alex hates the world for not being able to keep
+	the same language for all the people; he does not understand what
+	a "tradition" might be good for. Logically, it would be better
+	for all humans to speak the same language, which would encourage
+	communication between foreign countries. He wouldn't mind having
+	to learn another language, if that would be the ultimate one. He
+	likes the fact that English is on the way to become some sort of
+	international passepartout, really. He'd readily throw Italian
+	and all the rest down the drains of history, with no remorse.
+
+  FI
+
+  IF examining Alex's mouse
+
+    TITLE Alex's mouse
+
+    SAY It's an optical USB mouse. A shiny night blue plastic thing;
+	shaped like a bean flattened on its bottom side; its lower part
+	is almost transparent (smokey), while on top are two rather large
+	buttons. Between the buttons is the now-typical gummy wheel for
+	quick scrolling operations. In the middle of the top cover is a
+	transparent gummy emblem holding Logitech's logo. Alex bought it
+	in 2000, and despite its actual "mileage" it still works rather
+	well, save for the times when the optical sensor gets confused by
+	the few details of the mouse pad below, sending the pointer all
+	of a sudden to unexpected places; but that's relatively rare.
+
+  FI
+
+  IF examining Alex's coins keeper
+
+    TITLE Alex's coins keeper
+    SHOW Coins keeper
+
+    SAY Looking like a sorian kitten in the act of scratching his left ear,
+	it's a hollow clay container with a vertical slot behind its "head",
+	where coins are supposed to be inserted. It's rather realistic,
+	although it's less than half the size of a real "adult" cat.
+	The coins can later be retrieved from below, where a gum cap
+	locks a small hole. In effects, extracting the coins from there
+	is by far the hardest part. Alex selectively keeps only 1 and 2
+	euros coins into the kitten (no cents), as an emergency money
+	reserve holding relatively significant purchasing power. It
+	typically holds 40 to 80 euros; once full, in the summer of 2004,
+	it was found to hold as much as 130. Refilling it takes a lot of
+	time, as you could expect, at a rate of 1-2 euros per day (from
+	daily expenses' changes)...
+
+  FI
+
+  IF examining Alex's ashtray
+
+    TITLE Alex's ashtray
+
+    SAY The ashtray's shape is the bottom half of an ellipsoid, or a vertically
+	crunched sphere to say it simpler. It's of course hollow, and made of
+	crystal. That's quite useless, because the crystal would look beautifully
+	elegant; but it's an ashtray, so it's supposed to hold at least a handful
+	of burnt cigarettes, and that makes it absolutely ugly to see.
+	After hearing that cigarette ashes contain Radon and Polonium-210,
+	did Alex stop smoking? No, of course, but he bought PUSH _a yellow
+	plastic sign_ TO show radioactivity warning sign SAY to keep on the wall
+	nearby the wardrobe: the sign (an official EEC plaque) bears radioactivity
+	symbol, and reads "warning: radioactive materials".
+
+  FI
+
+  IF examining Alex's cigarettes
+
+    TITLE Alex's cigarettes
+
+    SAY It's a pack of "Muratti", a brand of Philip Morris, apparently
+	packaged in Switzerland (or so the packet reads on one side).
+	On both sides the packet bears a highly visible warning within
+	a black, thick, square cartridge. The warning reads "your
+	doctor and your pharmacist can help you quit smoking". That's
+	interesting, given that most doctors and pharmacists Alex knows
+	actually smoke twice as many cigarettes as him...
+
+  FI
+
+  IF examining Alex's lamp
+
+    TITLE Alex's lamp
+    APPEND Alex's lamp
+
+    SAY It's a steel lamp from the 80's: it once had a holder on top, but it
+	resulted way too small for almost all bulbs Alex pretended to attach
+	there. It actually carries an Osram low-consumption fluorescent lamp
+	(Circolux) emitting 15000 LUX in exchange for an input current of
+	only 24 W. Notice the room is in full sunlight coming from the window,
+	yet the lamp's halo is clearly visible. It has one advantage and one
+	disadvantage: it's terribly bright and thus barely capable of satisfying
+	Alex's criteria for a "small" bedroom lamp to be also kept on at night
+	(that is, an effective replacement of the Sun); but, it's also an
+	irresistible reference point for insects accumulating on the nearby
+	window's glasses, and there promptly exterminated. The disadvantage
+	specially hits the said insects, in fact.
+
+  FI
+
+  IF examining Alex's desk from above
+
+    TITLE Alex's desk seen from the top of the wardrobe
+    SHOW desk from above
+
+    SAY There's a pretty breathtaking panorama from here, isn't it?
+	No, eh? Maybe you prefered it with CLAIM _Noctis V_ SAY running, eh?
+	Now, that's disquieting... if even Martin starts begging Alex for its
+	release, he'll seriously consider moving to that beautiful little big
+	monolith coming out from the Atlantic ocean somewhere...
+
+    INDICATE _[descend from wardrobe] TO descend from Alex's wardrobe
+
+  FI
+
+  INDICATE _[look around] TO quit description and look around
+
+FI
+
+
+
+NOTE:	at this point, "generic" execution is over: following this note is a "stop" command,
+	which will tell the narrator to ignore whatever comes after it, during a normal run.
+	What follows the "stop" keyword are only subroutines: a subroutine is a piece of code
+	that is only executed "on request". The Narrator allows executing subroutines either
+	by explicitly calling them with the "please" command, which will take action as soon
+	as The Narrator meets "please", or via a "push...to" statement: this last possibility
+	will create a hyperlink, upon which the player could click with the left mouse button.
+	When The Narrator detects a click on that link, it will execute the subroutine which
+	name is found after the "to" keyword. Then, it will execute again the whole storybook,
+	to ideally give the writer a chance to describe whatever may have changed because of
+	the fact that the player clicked on the said hyperlink. Also note that some routines
+	aren't used for "player-visible" tasks: for example, "setup new location" doesn't do
+	anything directly visible. Instead, it denies a set of clauses that, together, define
+	where the player is located (the current "ambient"), and tells the above code to give
+	a textual description of the ambient. The routine will be called as a "commodity" to
+	avoid having to write "now you're not here", "now you're not there"... every time the
+	player moves from an ambient to another one.
+
+	Oh, one final hint: you don't really need writing the subroutine name between a comma,
+	following the "well" keyword, and a colon after the name. That's just to improve the
+	readability of the resulting code: punctuation around names of clauses and bookmarks
+	is only a decoration, and The Narrator barely ignores it while interpreting the code.
+
+STOP
+
+
+
+WELL, setup new location:
+
+  NOW you're NOT on Alex's room floor
+  NOW you're NOT on Alex's desk
+  NOW you're NOT on Alex's bed
+  NOW you're NOT on Alex's chair
+  NOW you're NOT on Alex's wardrobe
+
+  NOTE that since we're supposedly introducing the player to a new ambient,
+  NOW we might NOT witheld the ambient description
+
+DONE
+
+WELL, setup new description:
+
+  NOW NOT examining Alex's wardrobe
+  NOW NOT examining Alex's chair
+  NOW NOT examining Alex's monitor
+  NOW NOT examining Alex's monitor power supply
+  NOW NOT examining Alex's modem
+  NOW NOT examining Alex's computer
+  NOW NOT examining Alex's UPS
+  NOW NOT examining Alex's printer
+  NOW NOT examining Alex's keyboard
+  NOW NOT examining Alex's mouse
+  NOW NOT examining Alex's coins keeper
+  NOW NOT examining Alex's ashtray
+  NOW NOT examining Alex's cigarettes
+  NOW NOT examining Alex's lamp
+  NOW NOT examining Alex's desk from above
+
+  NOTE that because we're switching to a specific object's description,
+  NOW we might witheld the ambient description
+
+DONE
+
+WELL, jump on Alex's bed:
+
+  IF you're on Alex's bed
+
+    CLAIM You're already on Alex's bed...\
+
+  FI
+
+  IF you're NOT on Alex's bed
+
+    CLAIM You jump on Alex's bed to inspect what's above it...\
+    PLEASE setup new location: NOW you're on Alex's bed
+
+  FI
+
+DONE
+
+WELL, descend from Alex's bed:
+
+  IF you're NOT on Alex's bed
+
+    CLAIM You're not on Alex's bed...\
+
+  FI
+
+  IF you're on Alex's bed
+
+    CLAIM You descend from the bed...\
+    PLEASE setup new location: NOW you're on Alex's room floor
+
+  FI
+
+DONE
+
+WELL, examine Alex's wardrobe:
+
+  PLEASE setup new description:
+  NOW examining Alex's wardrobe
+
+DONE
+
+WELL, examine Alex's chair:
+
+  PLEASE setup new description:
+  NOW examining Alex's chair
+
+DONE
+
+WELL, look at Fottifoh:
+WELL, jump on Alex's wardrobe:
+
+  NOTE: did you see the two, coupled "well" keywords above?
+	It's simply because this piece of code will be called both when the player clicks on
+	the name "Fottifoh", which is a hyperlink placed in the description of my wardrobe,
+	and when the player explicitly decides to "jump on the wardrobe" via the prompt line.
+	Having different names leading to the same subroutine, which is what happens here, is
+	not necessary, but it's possible, and in this case it helps keeping track of which
+	situations may lead to this subroutine. In practice, having the storybook's code say
+	something like "if jump on wardrobe, please look at Fottifoh" would sound just weird,
+	although it -would- work perfectly: the second name for this subroutine allows saying,
+	instead, "if jump on wardrobe, please jump on Alex's wardrobe"... On the other hand,
+	having the first hyperlink leading here is interesting, because it gives the player a
+	shortcut to the normal "solution", which is jumping on the chair and then climbing the
+	wardrobe. That solution is supposed to be guessed, but once the player guessed it for
+	one time, the "Fottifoh" link works as a shortcut for the rest of the game: carefully
+	examine the sequence of conditions below, and you might be able to understand how this
+	kind of behavior is obtained...
+
+  IF you're NOT on Alex's chair, AND you have NOT learned to climb the wardrobe
+
+    CLAIM Fottifoh is on top of the wardrobe (Alex keeps it there): it looks
+	  like it's too high for you to get there, at least from your actual
+	  position...
+
+    APPEND Fotty high above
+
+  FI
+
+  IF you're on Alex's chair, OR you have learned to climb the wardrobe
+
+    IF you have learned to climb the wardrobe
+
+      CLAIM You trampoline again from Alex's chair to the wardrobe...
+
+    FI
+
+    IF you have NOT learned to climb the wardrobe
+
+      CLAIM Yay! You barely made it from the top of Alex's chair to the top
+	    of his wardrobe. So welcome to Fottifoh's place...
+
+      NOW you have learned to climb the wardrobe
+
+    FI
+
+    PLEASE setup new location:
+    NOW you're on Alex's wardrobe
+
+  FI
+
+DONE
+
+WELL, descend from Alex's wardrobe:
+
+  IF you're NOT on Alex's wardrobe
+
+    CLAIM You're not on Alex's wardrobe...\
+
+  FI
+
+  IF you're on Alex's wardrobe
+
+    CLAIM Whoa! That was quite a jump: you prefered aiming the desk...
+    PLEASE setup new location: NOW you're on Alex's desk
+
+  FI
+
+DONE
+
+WELL, look down at Alex's desk:
+
+  PLEASE setup new description:
+  NOW examining Alex's desk from above
+
+DONE
+
+WELL, jump on Alex's desk:
+
+  IF you're on Alex's desk
+
+    CLAIM You're already on Alex's desk...\
+
+  FI
+
+  IF you're NOT on Alex's desk
+
+    CLAIM You jump on Alex's desk...\
+    PLEASE setup new location: NOW you're on Alex's desk
+
+  FI
+
+DONE
+
+WELL, descend from Alex's desk:
+
+  IF you're NOT on Alex's desk
+
+    CLAIM You're not on Alex's desk...\
+
+  FI
+
+  IF you're on Alex's desk
+
+    CLAIM You descend from the desk...\
+    PLEASE setup new location: NOW you're on Alex's room floor
+
+  FI
+
+DONE
+
+WELL, display Alex's chair description:
+
+  TITLE Alex's chair
+
+  SAY Alex's chair is a quite classic, black office chair with rollers
+      below. Alex abuses the rollers continuously to fetch stuff from
+      other places of the room, and sometimes CLAIM _even_ SAY from
+      outside the room... er... he probably, secretly wishes he had a
+      rocket propeller below the chair so he could go places...
+
+DONE
+
+WELL, jump on Alex's chair:
+
+  IF you're on Alex's chair
+
+    CLAIM You're already on Alex's chair...\
+
+  FI
+
+  IF you're NOT on Alex's chair
+
+    CLAIM You jump on Alex's chair...\
+    PLEASE setup new location: NOW you're on Alex's chair
+
+  FI
+
+DONE
+
+WELL, descend from Alex's chair:
+
+  IF you're NOT on Alex's chair
+
+    CLAIM You're not on Alex's chair...\
+
+  FI
+
+  IF you're on Alex's chair
+
+    CLAIM You descend from the chair...\
+    PLEASE setup new location: NOW you're on Alex's room floor
+
+  FI
+
+DONE
+
+WELL, examine Alex's monitor:
+
+  PLEASE setup new description:
+  NOW examining Alex's monitor
+
+DONE
+
+WELL, examine Alex's monitor power supply:
+
+  PLEASE setup new description:
+  NOW examining Alex's monitor power supply
+
+DONE
+
+WELL, examine Alex's modem:
+
+  PLEASE setup new description:
+  NOW examining Alex's modem
+
+DONE
+
+WELL, examine Alex's computer:
+
+  PLEASE setup new description:
+  NOW examining Alex's computer
+
+DONE
+
+WELL, examine Alex's UPS:
+
+  PLEASE setup new description:
+  NOW examining Alex's UPS
+
+DONE
+
+WELL, examine Alex's printer:
+
+  PLEASE setup new description:
+  NOW examining Alex's printer
+
+DONE
+
+WELL, examine Alex's keyboard:
+
+  PLEASE setup new description:
+  NOW examining Alex's keyboard
+
+DONE
+
+WELL, examine Alex's mouse:
+
+  PLEASE setup new description:
+  NOW examining Alex's mouse
+
+DONE
+
+WELL, examine Alex's coins keeper:
+
+  PLEASE setup new description:
+  NOW examining Alex's coins keeper
+
+DONE
+
+WELL, examine Alex's ashtray:
+
+  PLEASE setup new description:
+  NOW examining Alex's ashtray
+
+DONE
+
+WELL, show radioactivity warning sign:
+
+  APPEND warning sign
+
+DONE
+
+WELL, examine Alex's cigarettes:
+
+  PLEASE setup new description:
+  NOW examining Alex's cigarettes
+
+DONE
+
+WELL, examine Alex's lamp:
+
+  PLEASE setup new description:
+  NOW examining Alex's lamp
+
+DONE
+
+WELL, quit description and look around:
+
+  NOW we might NO LONGER witheld the ambient description
+
+DONE
+
+WELL, cancel the warning:
+
+  NOTE this subroutine does nothing: just causes a move, and a subsequent page refresh...
+
+DONE
