@@ -1,4 +1,5 @@
 # Narrator
+<img title="Screenshot of the Narrator interface" src="./Narrator.png">
 The Narrator is a framework to build and play point-and-click adventure games, first published in 2003 by Alessandro Ghignola.
 
 ## How to use it
